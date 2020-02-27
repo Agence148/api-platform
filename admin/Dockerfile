@@ -36,7 +36,7 @@ CMD ["yarn", "start"]
 # depends on the "development" stage above
 FROM api_platform_admin_development AS api_platform_admin_build
 
-ARG REACT_APP_API_ENTRYPOINT
+ARG VUE_APP_API_ENTRYPOINT
 
 RUN set -eux; \
 	yarn build

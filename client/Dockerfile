@@ -25,14 +25,14 @@ VOLUME /usr/src/client/node_modules
 
 ENV HTTPS true
 
-CMD ["yarn", "start"]
+CMD ["yarn", "serve"]
 
 
 # "build" stage
 # depends on the "development" stage above
 FROM api_platform_client_development AS api_platform_client_build
 
-ARG REACT_APP_API_ENTRYPOINT
+ARG VUE_APP_API_ENTRYPOINT
 
 RUN set -eux; \
 	yarn build
@@ -44,6 +44,6 @@ FROM nginx:${NGINX_VERSION}-alpine AS api_platform_client_nginx
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/src/client/build
+WORKDIR /usr/src/client/dist
 
-COPY --from=api_platform_client_build /usr/src/client/build ./
+COPY --from=api_platform_client_build /usr/src/client/dist ./
